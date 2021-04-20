@@ -52,14 +52,8 @@ public class LojaModel {
 	public void setSaldoEmEstoque(double saldoEmEstoque) {
 		this.saldoEmEstoque = saldoEmEstoque;
 	}
-	@Override
-	public String toString() {
-		return "Nome do Produto: " + nomeDoProduto + 
-				"\nValor do Produto: R$" + precoDoProduto + 
-				"\nQuantidade do Produto: " + quantidadeDeProduto + 
-				"\nSaldo em Estoque: R$" + saldoEmEstoque + "\n";
+
 	
-	}
 
 
 }

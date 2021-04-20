@@ -27,6 +27,9 @@ public class ProgramaPrincipal {
 			case 2:
 				lojaController.ListarEstoque(produtos);
 				break;
+			case 3:
+				lojaController.editarProduto(produtos);
+				break;
 				
 			case 9:
 				sair = true;
