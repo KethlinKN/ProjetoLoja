@@ -46,6 +46,7 @@ public class LojaController {
 
 	public void ListarEstoque(List<LojaModel> produtos) {
 		System.out.println("---- PRODUTOS CADASTRADOS ----");
+		System.out.printf("| %10s | | %8s | %4s | 9% |\n", "Nome do Produto: ", "Valor do Produto: R$ ", "Quantidade do Produto: ", "Saldo em Estoque: R$");
 		for (LojaModel produtoModel : produtos) {
 			System.out.println(produtoModel);
 		}
