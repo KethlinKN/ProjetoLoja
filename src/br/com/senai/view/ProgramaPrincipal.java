@@ -30,7 +30,12 @@ public class ProgramaPrincipal {
 			case 3:
 				lojaController.editarProduto(produtos);
 				break;
-				
+			case 4:
+				lojaController.removerProduto(produtos);
+				break;
+			case 5:
+				lojaController.carrinhoCompra(produtos);
+				break;
 			case 9:
 				sair = true;
 				break;

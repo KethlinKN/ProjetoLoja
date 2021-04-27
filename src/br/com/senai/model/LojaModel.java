@@ -6,18 +6,20 @@ public class LojaModel {
 	private double precoDoProduto;
 	private int quantidadeDeProduto;
 	private double saldoEmEstoque;
+	private String carrinhoCompra;
 
 	// CONSTRUTORES
 	public LojaModel() {
 
 	}
 
-	public LojaModel(String nomeDoProduto, double precoDoProduto, int quantidadeDeProduto, double saldoEmEstoque) {
+	public LojaModel(String nomeDoProduto, double precoDoProduto, int quantidadeDeProduto, double saldoEmEstoque, String carrinhoCompra) {
 		super();
 		this.nomeDoProduto = nomeDoProduto;
 		this.precoDoProduto = precoDoProduto;
 		this.quantidadeDeProduto = quantidadeDeProduto;
 		this.saldoEmEstoque = saldoEmEstoque;
+		this.carrinhoCompra = carrinhoCompra;
 	}
 
 	// METODOS
@@ -52,7 +54,13 @@ public class LojaModel {
 	public void setSaldoEmEstoque(double saldoEmEstoque) {
 		this.saldoEmEstoque = saldoEmEstoque;
 	}
+	public String getCarrinhoCompra() {
+		return carrinhoCompra;
+	}
 
+	public void setCarrinhoCompra(String carrinhoCompra) {
+		this.carrinhoCompra = carrinhoCompra;
+	}
 	
 
 
