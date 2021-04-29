@@ -2,6 +2,8 @@ package br.com.senai.controller;
 
 import java.util.List;
 import java.util.Scanner;
+
+import br.com.senai.model.CarrinhoModel;
 import br.com.senai.model.LojaModel;
 
 public class LojaController {
@@ -19,7 +21,7 @@ public class LojaController {
 	public void menu() {
 		System.out.println("- - - M E N U - - - ");
 		System.out.println(
-				"1- Cadastrar itens.\n2- Listar estoque.\n3- Editar item.\n4- Remover item.\n5- Ver carrinho.\n6- Realizar venda.\n9- Sair do sistema.\n");
+				"1- Cadastrar itens.\n2- Listar estoque.\n3- Editar item.\n4- Remover item.\n5- Adicionar ao carrinho.\n6- Listar itens do carrinho.\n9- Sair do sistema.\n");
 
 	}
 
@@ -137,34 +139,45 @@ public class LojaController {
 		return null;
 	}
 
-	public void carrinhoCompra(List<LojaModel> produtos) {
-		LojaModel lojamodel = new LojaModel();
-		System.out.println("---------------- CARRINHO DE COMPRAS ----------------");
-		if (produtos.size() <= 0) {
-			System.out.println("Não possui produtos para serem adicionados ao carrinho!");
-			return;
-		}
+	public void carrinhoCompra(List<LojaModel> produtos, List<CarrinhoModel> carrinho) {
+		CarrinhoModel carrinhoC = new CarrinhoModel();
 		ListarEstoque(produtos);
+		System.out.println("-------- CARRINHO DE COMPRAS --------");
 		System.out.print("Informe o ID do produto a ser adicionado carrinho: ");
 		int idDoProduto = scanner.nextInt();
 		if (idDoProduto > produtos.size()) {
-			System.out.println("Este produto não foi cadastrado!");
+			System.out.println("Não possui produtos para com esse ID!");
 			return;
-		} 
-		System.out.println("Qual a quantidade que deseja adicionar ao carrinho?");
-		int qtd = scanner.nextInt();
-		
-		if(idDoProduto > produtos.size()) {
-			lojamodel.setSaldoEmEstoque(produtos.get(idDoProduto).getQuantidadeDeProduto() - qtd);
-			
-			
 		}
-
-		
-		
-		
+		idDoProduto--;
+		System.out.println("Informe a quantidade que deseja adicionar ao carrinho: ");
+		int qtdProduto = scanner.nextInt();
+		if(qtdProduto > produtos.get(idDoProduto).getQuantidadeDeProduto()) {
+			System.out.println("Não temos essa quantidade em estoque!");
+			return;
+		}
+		produtos.get(idDoProduto).setQuantidadeDeProduto(produtos.get(idDoProduto).getQuantidadeDeProduto() - qtdProduto);
+		produtos.get(idDoProduto).setSaldoEmEstoque(produtos.get(idDoProduto).getQuantidadeDeProduto() * produtos.get(idDoProduto).getPrecoDoProduto());
+		carrinhoC.setNomeDoProdutoComprado(produtos.get(idDoProduto).getNomeDoProduto());
+		carrinhoC.setPrecoDoProdutoComprado(produtos.get(idDoProduto).getPrecoDoProduto());
+		carrinhoC.setQuantidadeDeProdutoComprado(qtdProduto);
+		carrinhoC.setSaldoEmEstoqueComprado(qtdProduto * carrinhoC.getPrecoDoProdutoComprado());
+		carrinho.add(carrinhoC);
+	}
+	
+	public List<CarrinhoModel> listarCarrinho(List<CarrinhoModel> carrinho) {
+		System.out.println("-------- PRODUTOS NO CARRINHO -------");
+		System.out.printf("| %2s | %10s | %8s | %4s | %9s |\n", "ID", "Produto", "Preço ", "Qtd", "R$ Total");
+		System.out.println("---------- CARRINHO DE COMPRAS ----------");
+		for (int i = 0; i < carrinho.size(); i++) {
+			System.out.printf("| %2s | %10s | R$%6.2f | %4s | %9s |\n", i + 1, carrinho.get(i).getNomeDoProdutoComprado(),
+					carrinho.get(i).getPrecoDoProdutoComprado(), carrinho.get(i).getQuantidadeDeProdutoComprado(),
+					carrinho.get(i).getSaldoEmEstoqueComprado());
+		}
+		return carrinho;
 		
 	}
+	
 	public void removerProduto(List<LojaModel> produtos) {
 		System.out.println("---------------- REMOVER PRODUTO ----------------");
 		if (produtos.size() <= 0) {
